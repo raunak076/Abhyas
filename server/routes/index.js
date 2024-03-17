@@ -6,12 +6,12 @@ const bcrypt = require("bcryptjs");
 const salt = 10;
 
 /* GET home page. */
-router.get("/", (req, res) => {
-  return res.send("hii");
-});
+// router.get("/", (req, res) => {
+//   return res.send("hii");
+// });
 
 // registeration
-router.post("/register", (req, res) => {
+router.post("/", (req, res) => {
   try {
     const { name, pid, pass } = req.body;
     //   hashing here
@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
   }
 });
 
-router.get("/get-all-user", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const details = await user.find();
     res.status(200).json(details);

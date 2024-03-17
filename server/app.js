@@ -24,9 +24,9 @@ app.use("/users", usersRouter);
 app.use("/form", formrRouter);
 app.use("/quiz", quizrouter);
 
-app.listen(8000, (err) => {
+app.listen(3000, (err) => {
   if (err) return console.log(err.message);
-  console.log(`server started... \nhttp://localhost:8000`);
+  console.log(`server started... \nhttp://localhost:3000`);
 });
 
 // catch 404 and forward to error handler
