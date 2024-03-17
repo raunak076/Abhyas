@@ -1,0 +1,12 @@
+.input{
+    border: 1px solid gray;
+    padding: .5rem;
+    margin: 1rem;
+}
+.textarea{
+    padding: .5rem;
+}
+.p{
+    font-weight: 700;
+    color: #ffb703;
+}
