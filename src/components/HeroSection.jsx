@@ -4,6 +4,7 @@ import { Box, Button } from '@mui/material'
 import { styled } from 'styled-components'
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useCookie } from '../cookie/useCookie';
 
 
 
@@ -35,6 +36,10 @@ const Headcont=styled.div({
 });
 
 export default function HeroSection() {
+  const { set, get, remove } = useCookie('isLog');
+  React.useEffect(()=>{
+        set(false)
+  },[])
  
   return (
     <div>

@@ -14,6 +14,7 @@ import Paper from '@mui/material/Paper';
 import TopBar from './TopBar';
 import { useQuery } from 'react-query';
 import useAuth from '../hooks/useAuth';
+import { useCookie } from '../cookie/useCookie';
 
 
 
@@ -24,6 +25,7 @@ const fetchQuiz=()=>{
 const ChooseQuiz = () => {
   const navigate = useNavigate();
  const {quizid,setId}=useAuth();
+ const {set}=useCookie('quizid');
  const {isLoading,data,isError,error} =useQuery(
     'choose-quiz',
      fetchQuiz,
@@ -49,7 +51,7 @@ const ChooseQuiz = () => {
  }
 
  const handlequiz=(id)=>{
-  setId({id});
+  set(id);
   navigate('/dashboard/attempt')
  }
 

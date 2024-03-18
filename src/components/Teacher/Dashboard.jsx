@@ -1,17 +1,14 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import Side from './Side'
+import Side from '../Side'
 import { styled } from 'styled-components'
-import TopBar from './TopBar';
-import Mid from './Mid';
-import style from "../styles/styles.module.css"
-import BottomNav from './BottomNav';
+import style from "../../styles/styles.module.css"
+import BottomNav from '../BottomNav';
 import Home from './Home';
 import { Route, Routes } from 'react-router-dom';
-import MyForm from './MyForm';
-import AttemptTest from './AttemptTest';
-import ChooseQuiz from './ChooseQuiz';
-import PostQuiz from './Teacher/PostQuiz';
+import PostQuiz from './PostQuiz'
+
+
 
 const Left=styled.div({
     width:'5%',
@@ -57,9 +54,8 @@ const Dashboard = () => {
     <Right>
      <Routes>
       <Route path="/" element={<Home />} />
-      {/* <Route path="/" element={<MyForm />} /> */}
-      <Route path='/attempt' element={<AttemptTest/>} />
-      <Route path='/choosetest' element={<ChooseQuiz/>} />
+      <Route path='/postquiz' element={<PostQuiz/>} />
+  
      </Routes>
        <Box className={style.bottom} sx={{
         position:'absolute',

@@ -5,15 +5,12 @@ const bcrypt = require("bcryptjs");
 
 const salt = 10;
 
-/* GET home page. */
-// router.get("/", (req, res) => {
-//   return res.send("hii");
-// });
+
 
 // registeration
 router.post("/", (req, res) => {
   try {
-    const { name, pid, pass } = req.body;
+    const { name, pid, pass ,role} = req.body;
     //   hashing here
     bcrypt.hash(pass, salt, async (err, hash) => {
       if (err) {
@@ -23,6 +20,7 @@ router.post("/", (req, res) => {
         name: name,
         pid: pid,
         pass: hash,
+        role:role
       });
       res.status(201).json(useradded);
     });

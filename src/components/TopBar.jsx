@@ -5,14 +5,16 @@ import styles from "../styles/styles.module.css"
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthProvider';
+import { useCookie } from '../cookie/useCookie';
 
 const TopBar = () => {
   const navigate=useNavigate();
-   const {auth,setAuth}=useContext(AuthContext);
+   const {set,get,remove}=useCookie('auth');
+   const {name,role}=get();
 
 
 const logout=()=>{
-   setAuth({name:"",pass:""});
+   remove();
    navigate('/')
 }
 
@@ -54,7 +56,7 @@ const logout=()=>{
       }}>
        
       </Box>
-      <p className={styles.username}>{auth.name}</p>
+      <p className={styles.username}>{name}</p>
      </Box>
 
      {/* logout---> */}

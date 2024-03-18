@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+
+
+
 .background {
    background-image: url("../assets//bg.png");
    background-size: cover;
@@ -11,6 +14,21 @@
     width: 100vw;
     height: 100vh;
   }
+
+
+  select {
+    background-color: #30343f;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    border-radius: 2px;
+    border: none;
+    color: white;
+  }
+  select:active{
+    border: none;
+  }
+
   @media (max-width:800px) {
     .background{
       background-image: url("https://colibriwp.com/blog/wp-content/uploads/2021/06/5243028.jpg");

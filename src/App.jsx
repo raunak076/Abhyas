@@ -6,7 +6,7 @@ import Register from './components/Register'
 import styles from './styles/styles.module.css'
 import ToastSuc from "./constants/ToastSuc";
 import Dashboard from './components/Dashboard'
-import QuizForm from './components/QuizForm'
+import Dashboard1 from './components/Teacher/Dashboard'
 import Layout from "./components/Layout"
 import RequireAuthentication from './components/RequireAuthentication'
 import {QueryClientProvider,QueryClient} from 'react-query'
@@ -36,7 +36,7 @@ function App() {
       {/* Protected Routes */}
        <Route element={ <RequireAuthentication/> }>
           <Route path="/dashboard/*" element={<Dashboard />} />
-           <Route path="dashboard/quiz" element={<QuizForm/>} />
+          <Route path='/teacher/*' element={<Dashboard1/>} />
       
        </Route>
         

@@ -12,6 +12,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import axios from 'axios';
 import useAuth from "../hooks/useAuth"
+import { useCookie } from '../cookie/useCookie';
 
 
 const fetchquiz=(id)=>{
@@ -20,17 +21,17 @@ const fetchquiz=(id)=>{
 
 const AttemptTest = () => {
     const [ans,setAns]=useState([]);
-     const {quizid}=useAuth();
+    const {get}=useCookie('quizid')
     const navigate=useNavigate();
     const {auth}=useAuth();
   const {isLoading,isError,error,data} =  useQuery(
         'fetching-questions',
-        ()=>fetchquiz(quizid.id)
+        ()=>fetchquiz(get())
     )
     var mydata;
     if(!isLoading){
          mydata=data.data[0];
-        console.log("quiz id is:",quizid,"data is",mydata.questions[0].question)
+        console.log("quiz id is:",get(),"data is",mydata.questions[0].question)
         mydata.questions.forEach((question, index) => {
             console.log(`Question ${index + 1}: ${question.question}`);
         });

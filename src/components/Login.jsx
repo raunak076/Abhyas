@@ -8,12 +8,16 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from '../context/AuthProvider'
 import useAuth from '../hooks/useAuth'
+import { useCookie } from '../cookie/useCookie'
 
 const Login = () => {
   const [name,setName]=useState("");
  const [pass,setPass]=useState("");
  const navigate=useNavigate();
  const {auth,setAuth}=useAuth();
+ const { set, get, remove } = useCookie('isLog');
+ const { set:setuser, get:getuser } = useCookie('auth');
+
 
 
 
@@ -27,13 +31,14 @@ const Login = () => {
             pass:pass
            }).then((res)=>{
              var pid=res?.data.pid;
+             var role=res?.data.role;
               toast.success("Welcome  !", {
               position: "top-center"
             });
               setAuth({name,pid});
-              
-       
-              console.log(res)
+              set(true)
+                 setuser({name,role});
+              console.log(res,getuser())
               setTimeout(() => {
                 navigate('/dashboard');
               }, 1000);
