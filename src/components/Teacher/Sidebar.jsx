@@ -8,7 +8,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { motion } from "framer-motion"
 
 
-const Side = () => {
+const Sidebar = () => {
   return (
    <>
   <motion.div
@@ -31,8 +31,8 @@ const Side = () => {
         <Box sx={{
             overflow:'hidden'
         }}>
-            <Link to={'/dashboard'}>
-            <Tooltip title="hello" placement="right-end">
+            <Link to={'/teacher'}>
+            <Tooltip title="home" placement="right-end">
             <HomeIcon sx={{color:'#f48c06'}}/>
             </Tooltip>
             </Link>    
@@ -40,21 +40,13 @@ const Side = () => {
         <Box sx={{
             overflow:'hidden'
         }}>
-              <Link to={'/dashboard/myform'}>
-              <Tooltip  title="MyForm" placement="right-end">
+              <Link to={'/teacher/analysis'}>
+              <Tooltip  title="Analysis" placement="right-end">
               <QueryStatsIcon sx={{color:'#f48c06'}}/>
               </Tooltip>
               </Link>
         </Box>
-       <Link to={'/dash/details'}>
-       <Box sx={{
-            overflow:'hidden'
-        }}>
-              <Tooltip title="History" placement="right-end">
-               <EventNoteIcon sx={{color:'#f48c06'}}/>
-               </Tooltip>
-        </Box>
-       </Link>
+      
         <Box sx={{
             overflow:'hidden'
         }}>
@@ -68,4 +60,4 @@ const Side = () => {
   )
 }
 
-export default Side
+export default Sidebar

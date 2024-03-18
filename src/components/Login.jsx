@@ -40,7 +40,12 @@ const Login = () => {
                  setuser({name,role});
               console.log(res,getuser())
               setTimeout(() => {
-                navigate('/dashboard');
+                if(role==="teacher"){
+                  navigate('/teacher');
+                }
+                else{
+                  navigate('/dashboard');
+                }
               }, 1000);
 
            }).catch((error)=>{

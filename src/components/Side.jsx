@@ -37,24 +37,7 @@ const Side = () => {
             </Tooltip>
             </Link>    
         </Box>
-        <Box sx={{
-            overflow:'hidden'
-        }}>
-              <Link to={'/dashboard/myform'}>
-              <Tooltip  title="MyForm" placement="right-end">
-              <QueryStatsIcon sx={{color:'#f48c06'}}/>
-              </Tooltip>
-              </Link>
-        </Box>
-       <Link to={'/dash/details'}>
-       <Box sx={{
-            overflow:'hidden'
-        }}>
-              <Tooltip title="History" placement="right-end">
-               <EventNoteIcon sx={{color:'#f48c06'}}/>
-               </Tooltip>
-        </Box>
-       </Link>
+       
         <Box sx={{
             overflow:'hidden'
         }}>

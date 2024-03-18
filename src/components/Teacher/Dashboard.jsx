@@ -1,12 +1,13 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import Side from '../Side'
 import { styled } from 'styled-components'
 import style from "../../styles/styles.module.css"
 import BottomNav from '../BottomNav';
 import Home from './Home';
 import { Route, Routes } from 'react-router-dom';
 import PostQuiz from './PostQuiz'
+import Sidebar from './Sidebar';
+import Analysis from './Analysis';
 
 
 
@@ -47,7 +48,7 @@ const Dashboard = () => {
    }}>
     {/* left side */} 
    <Left >
-      <Side/>
+    <Sidebar/>
    </Left>
 
    {/* right side */}
@@ -55,7 +56,7 @@ const Dashboard = () => {
      <Routes>
       <Route path="/" element={<Home />} />
       <Route path='/postquiz' element={<PostQuiz/>} />
-  
+       <Route path='/analysis' element={<Analysis/>} />
      </Routes>
        <Box className={style.bottom} sx={{
         position:'absolute',
