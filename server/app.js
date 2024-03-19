@@ -9,6 +9,7 @@ var usersRouter = require("./routes/users");
 var formrRouter = require("./routes/formroute");
 const quizrouter = require("./routes/quizstatus");
 const cors = require("cors");
+const  studentRoutes  = require("./routes/student");
 
 var app = express();
 app.use(cors());
@@ -19,10 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/api/student",studentRoutes)
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/form", formrRouter);
 app.use("/quiz", quizrouter);
+// app.use("/api/student", studentRoutes);
 
 app.listen(3000, (err) => {
   if (err) return console.log(err.message);
