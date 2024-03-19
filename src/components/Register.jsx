@@ -90,7 +90,7 @@ const Register = () => {
 
                                 <select onChange={(e) => setRole(e.target.value)}>
                                     <optgroup>
-                                        <option value="student">student</option>
+                                        <option value="student">Student</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="role" selected>Role</option>
                                     </optgroup>

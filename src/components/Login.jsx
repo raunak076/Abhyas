@@ -27,8 +27,8 @@ const Login = () => {
 
     //  console.log(typeof(name),typeof(pass))
     axios.post(`http://localhost:3000/api/${role}/login`, {
-      name: name,
-      pass: pass
+      pid: name,
+      password: pass
     }).then((res) => {
       var pid = res?.data.pid;
       var role = res?.data.role;
@@ -80,7 +80,7 @@ const Login = () => {
 
               <div className={style.inputBox}>
 
-                <input value={name} onChange={(e) => { setName(e.target.value) }} type="text" required /> <i>Username</i>
+                <input value={name} onChange={(e) => { setName(e.target.value) }} type="text" required /> <i>PID</i>
 
               </div>
 
@@ -93,7 +93,7 @@ const Login = () => {
 
                 <select onChange={(e) => setRole(e.target.value)}>
                   <optgroup>
-                    <option value="student">student</option>
+                    <option value="student">Student</option>
                     <option value="teacher">Teacher</option>
                     <option value="role" selected>Role</option>
                   </optgroup>
