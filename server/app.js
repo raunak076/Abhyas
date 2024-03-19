@@ -10,6 +10,7 @@ var formrRouter = require("./routes/formroute");
 const quizrouter = require("./routes/quizstatus");
 const cors = require("cors");
 const  studentRoutes  = require("./routes/student");
+const teacherRoutes = require("./routes/teacher");
 
 var app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/api/student",studentRoutes)
+app.use("/api/teacher",teacherRoutes)
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/form", formrRouter);
