@@ -37,4 +37,33 @@ studentRoutes.post("/register",async(req,res)=>{
             })
         }
     })
+
+    studentRoutes.post("/login",async(req,res)=>{
+        try {
+            const {pid, password} = req.body;
+            if (!(password && pid))
+                return res.status(201).json({
+                status: "failed",
+                message: "Please fill all the fields",
+            });
+            const student = await Student.findOne({ pid })
+            if (!student) {
+                return res.status(201).json({
+                  status: "failed",
+                  message: "Invailid credentials",
+                });
+              }
+                res.status(201).json({
+                status: "success",
+                message: "User successfully loggedin",
+                student
+                });
+            } catch (error) {
+                return res.status(500).json({
+                    status: "failed",
+                    message: "Something went wrong",
+                    error: error.message,
+                })
+            }
+        })
 module.exports = studentRoutes
