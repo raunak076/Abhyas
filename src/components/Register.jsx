@@ -11,18 +11,19 @@ import { Box, InputLabel, MenuItem, Select } from '@mui/material';
 
 const Register = () => {
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [pid, setPid] = useState("");
     const [pass, setPass] = useState("");
     const [role, setRole] = useState('');
+    const [email, setEmail] = useState('');
     const nav = useNavigate();
 
     const submitform = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:3000/", {
+        axios.post(`http://localhost:3000/api/${role}/register`, {
             name: name,
-            pid: email,
-            pass: pass,
-            role:role
+            pid: pid,
+            password: pass,
+            email: email
         }).then(() => {
             toast.success("Welcome  !", {
                 position: "top-center"
@@ -69,10 +70,15 @@ const Register = () => {
 
                             <div className={style.inputBox}>
 
-                                <input value={email} onChange={(e) => { setEmail(e.target.value) }} type="text" required /> <i>PID</i>
+                                <input value={pid} onChange={(e) => { setPid(e.target.value) }} type="text" required /> <i>PID</i>
 
                             </div>
 
+                            <div className={style.inputBox}>
+
+                                <input value={email} onChange={(e) => { setEmail(e.target.value) }} type="email" required /> <i>Email</i>
+
+                            </div>
 
                             <div className={style.inputBox}>
 
@@ -82,7 +88,7 @@ const Register = () => {
 
                             <div className={style.inputBox}>
 
-                                <select onChange={(e)=>setRole(e.target.value)}>
+                                <select onChange={(e) => setRole(e.target.value)}>
                                     <optgroup>
                                         <option value="student">student</option>
                                         <option value="teacher">Teacher</option>

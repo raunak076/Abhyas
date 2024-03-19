@@ -11,68 +11,68 @@ import useAuth from '../hooks/useAuth'
 import { useCookie } from '../cookie/useCookie'
 
 const Login = () => {
-  const [name,setName]=useState("");
- const [pass,setPass]=useState("");
- const navigate=useNavigate();
- const {auth,setAuth}=useAuth();
- const { set, get, remove } = useCookie('isLog');
- const { set:setuser, get:getuser } = useCookie('auth');
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+  const navigate = useNavigate();
+  const { auth, setAuth } = useAuth();
+  const { set, get, remove } = useCookie('isLog');
+  const { set: setuser, get: getuser } = useCookie('auth');
+  const [role, setRole] = useState('');
 
 
 
+  const handlelogin = (e) => {
 
-     const handlelogin=(e)=>{
-    
-           e.preventDefault();
-          
-          //  console.log(typeof(name),typeof(pass))
-           axios.post('http://localhost:3000/login',{
-            name:name,
-            pass:pass
-           }).then((res)=>{
-             var pid=res?.data.pid;
-             var role=res?.data.role;
-              toast.success("Welcome  !", {
-              position: "top-center"
-            });
-              setAuth({name,pid});
-              set(true)
-                 setuser({name,role});
-              console.log(res,getuser())
-              setTimeout(() => {
-                if(role==="teacher"){
-                  navigate('/teacher');
-                }
-                else{
-                  navigate('/dashboard');
-                }
-              }, 1000);
+    e.preventDefault();
 
-           }).catch((error)=>{
-            toast.error("Something Went Wrong  !", {
-              position: "top-center"
-            });
-           console.log(error)
-           })
-     }
+    //  console.log(typeof(name),typeof(pass))
+    axios.post(`http://localhost:3000/api/${role}/login`, {
+      name: name,
+      pass: pass
+    }).then((res) => {
+      var pid = res?.data.pid;
+      var role = res?.data.role;
+      toast.success("Welcome  !", {
+        position: "top-center"
+      });
+      setAuth({ name, pid });
+      set(true)
+      setuser({ name, role });
+      console.log(res, getuser())
+      setTimeout(() => {
+        if (role === "teacher") {
+          navigate('/teacher');
+        }
+        else {
+          navigate('/dashboard');
+        }
+      }, 1000);
+
+    }).catch((error) => {
+      toast.error("Something Went Wrong  !", {
+        position: "top-center"
+      });
+      console.log(error)
+    })
+  }
 
   return (
     <div>
-      
+
       <section>
         <Background />
 
         <motion.div
-        initial={{height:'0%'}}
-        animate={{height:'auto'}}
-        transition={{duration:.5}}
-        className={style.signin}>
+          initial={{ height: '0%' }}
+          animate={{ height: 'auto' }}
+          transition={{ duration: .5 }}
+          className={style.signin}>
 
           <motion.div
-          initial={{opacity:0}}
-          animate={{opacity:1}}
-          transition={{duration:2}}
-          className={style.content}>
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2 }}
+            className={style.content}>
 
             <h2>Sign In</h2>
 
@@ -80,19 +80,32 @@ const Login = () => {
 
               <div className={style.inputBox}>
 
-                <input value={name} onChange={(e)=>{setName(e.target.value)}} type="text" required /> <i>Username</i>
+                <input value={name} onChange={(e) => { setName(e.target.value) }} type="text" required /> <i>Username</i>
 
               </div>
 
               <div className={style.inputBox}>
 
-                <input value={pass} onChange={(e)=>{setPass(e.target.value)}} type="password" required /> <i>Password</i>
+                <input value={pass} onChange={(e) => { setPass(e.target.value) }} type="password" required /> <i>Password</i>
 
               </div>
+              <div className={style.inputBox}>
+
+                <select onChange={(e) => setRole(e.target.value)}>
+                  <optgroup>
+                    <option value="student">student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="role" selected>Role</option>
+                  </optgroup>
+                </select>
+
+              </div>
+
 
               <div className={style.links}> <a href="#">Forgot Password</a> <Link to="/"><a>Home</a> </Link> <Link to="/register"><a>Signup</a> </Link>
 
               </div>
+
 
               <div className={style.inputBox}>
 
@@ -119,8 +132,8 @@ const Login = () => {
         draggable
         pauseOnHover
         theme="light"
-        
-        />
+
+      />
     </div>
   )
 }
