@@ -32,6 +32,13 @@ const Login = () => {
     }).then((res) => {
       var pid = res?.data.pid;
       var role = res?.data.role;
+    //  check status from server -->
+    if(res.data.status==='failed'){
+      toast.error("No User Found", {
+        position: "top-center"
+      });
+    }
+    else if(res.data.status==='success'){
       toast.success("Welcome  !", {
         position: "top-center"
       });
@@ -47,6 +54,8 @@ const Login = () => {
           navigate('/dashboard');
         }
       }, 1000);
+    }
+
 
     }).catch((error) => {
       toast.error("Something Went Wrong  !", {

@@ -24,6 +24,7 @@ teacherRoutes.post("/register",async(req,res)=>{
             email
           });
           teacher.save();
+          console.log(teacher)
             res.status(201).json({
             status: "success",
             message: "User successfully registered",
@@ -64,6 +65,16 @@ teacherRoutes.post("/register",async(req,res)=>{
                     message: "Something went wrong",
                     error: error.message,
                 })
+            }
+        })
+
+        teacherRoutes.get('/',async(req,res)=>{
+            try{
+                const details=await Teacher.find();
+                res.status(200).send(details);
+            }catch(e){
+                res.status(400).send(e);
+                console.log("error in getting ")
             }
         })
 module.exports = teacherRoutes

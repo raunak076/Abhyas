@@ -24,14 +24,24 @@ const Register = () => {
             pid: pid,
             password: pass,
             email: email
-        }).then(() => {
-            toast.success("Welcome  !", {
+        }).then((res) => {
+
+            if(res?.data.status==='failed'){
+                toast.error(`${res.data.message}`, {
+                    position: "top-center"
+                });
+                console.log(res?.data)
+            }
+          else{
+            toast.success("Registered Successfully  !", {
                 position: "top-center"
             });
-
             setTimeout(() => {
                 nav('/login');
             }, 1000);
+          }
+
+         
 
         }).catch(() => {
             toast.error("Something Went Wrong  !", {

@@ -66,4 +66,12 @@ studentRoutes.post("/register",async(req,res)=>{
                 })
             }
         })
+    studentRoutes.get('/',async(req,res)=>{
+        try{
+            const details=await Student.find();
+            res.status(200).send(details);
+        }catch(e){
+            res.status(400).send(e);
+        }
+    })
 module.exports = studentRoutes
