@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import useAuth from "../hooks/useAuth"
+
 import { useCookie } from '../cookie/useCookie';
 
 
@@ -23,7 +23,7 @@ const AttemptTest = () => {
     const [ans,setAns]=useState([]);
     const {get}=useCookie('quizid')
     const navigate=useNavigate();
-    const {auth}=useAuth();
+    const {get:getpid}=useCookie('auth')
   const {isLoading,isError,error,data} =  useQuery(
         'fetching-questions',
         ()=>fetchquiz(get())
@@ -31,10 +31,8 @@ const AttemptTest = () => {
     var mydata;
     if(!isLoading){
          mydata=data.data[0];
-        console.log("quiz id is:",get(),"data is",mydata.questions[0].question)
-        mydata.questions.forEach((question, index) => {
-            console.log(`Question ${index + 1}: ${question.question}`);
-        });
+    
+       
       
     }
   
@@ -42,9 +40,7 @@ const AttemptTest = () => {
    
   
     // log ans
-useEffect(()=>{
-   console.log(ans)
-},[ans])
+
 
 
 // handle ans slection
@@ -104,21 +100,33 @@ const submit=(e)=>{
             position: "top-center"
           });
      }
-   const name=auth.name;
-   console.log(name,auth.pid,mydata.subname)
-     axios.post('http://localhost:3000/quiz/',{
-         name:name,
-         pid:auth.pid,
-         subj:mydata.subname,
+  
+
+  const quizid=get();
+//    handling when student submits form in submit method
+     axios.put('http://localhost:3000/api/student',{
+         pid:getpid().pid,
          status:"Attempted",
          score:c.toString(),
-        
+         quizid
      }).then((res)=>{
-            console.log("Inserted successfully")
+            console.log("Inserted successfully");
+            console.log("data",res.data)
+            toast.success("Inserted  ! ", {
+                position: "top-center"
+              });
+            // redirecting to homepage in 1s
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 1000);
      }).catch((e)=>{
-        console.log("error in insertions ")
+        toast.error("Inserted  ! ", {
+            position: "top-center"
+          });
      })
 }
+
+// submit ends here
 
   return (
    <>

@@ -95,15 +95,16 @@ router.get('/addquiz',async(req,res)=>{
     
 })
 
-//get data by id
+//get data by id for students
 router.get('/addquiz/:id',async(req,res)=>{
     const id=req.params.id;
-    console.log("id is:",id);
+    console.log("Working:",id);
     try{
       
         const details=await addquiz.find({
             _id:id
         });
+        console.log("quiz details are",details)
         res.status(200).send(details);
        }catch(err){
               res.status(404).send("Error pls check ");

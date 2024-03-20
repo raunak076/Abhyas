@@ -16,45 +16,60 @@ import { useQueries, useQuery } from 'react-query';
 import useAuth from '../hooks/useAuth';
 import { useCookie } from '../cookie/useCookie';
 
+const fetchStudent = (pid) => {
+  return axios.get(`http://localhost:3000/api/student/${pid}`);
+};
 
-
-const fetchStudent=()=>{
-   return  axios.get(`http://localhost:3000/api/student/${pid}`);
-}
+const fetchquizes = (id) => {
+  return axios.get(`http://localhost:3000/quiz/addquiz/${id}`);
+};
 
 const ChooseQuiz = () => {
   const navigate = useNavigate();
- const {quizid,setId}=useAuth();
- const {set}=useCookie('quizid');
- const {get}=useCookie('auth');
-//  fetching students fro getting pen ding quizes
- const {isLoading,data,isError,error} =useQuery( 'choose-quiz', ()=>fetchStudent(get().pid));
-//  fetching quiz with help of quiz id dynamic parallel quizes
-// const {data:quiz}=useQueries('fetchquiz',()=>{fetchquiz()})
-console.log("data is:",data?.data)
-const {pid}=get();
-console.log("pid:",get().pid)
-  if(isLoading){
-    return <>
-    <Card>
-      <h1>Loading...</h1>
-    </Card>
-    </>
-   }
+  const { set } = useCookie('quizid');
+  const { get } = useCookie('auth');
+  const [quizid, setQuizid] = useState();
+
+  // Fetching students for getting pending quizzes
+  const { isLoading, data, isError, error } = useQuery('choose-quiz', () => fetchStudent(get().pid), {
+    onSuccess: (data) => {
+      const fetchedQuizId = data?.data[0]?.assignedQuiz.map(item => item.quizid);
+      setQuizid(fetchedQuizId);
+    }
+  });
+
+  // useEffect to execute queries based on quizid
+  const quizResultQueries = quizid ? quizid.map(id => ({
+    queryKey: ['quiz-id', id],
+    queryFn: () => fetchquizes(id)
+  })) : [];
+
+  const result = useQueries(quizResultQueries);
   
 
- if(isError){
-  return <>
-  <Card>
-    <h1>Error in Fetching data from database.</h1>
-  </Card>
-  </>
- }
 
- const handlequiz=(id)=>{
-  set(id);
-  navigate('/dashboard/attempt')
- }
+
+  if (isLoading) {
+    return (
+      <Card>
+        <h1>Loading...</h1>
+      </Card>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Card>
+        <h1>Error in Fetching data from database.</h1>
+      </Card>
+    );
+  }
+
+  const handlequiz = (id) => {
+    set(id);
+    console.log("id is:",id)
+    navigate('/dashboard/attempt');
+  };
 
   return (
     <>
@@ -74,29 +89,27 @@ console.log("pid:",get().pid)
                   <TableCell>Subject</TableCell>
                   <TableCell>Due Date</TableCell>
                   <TableCell>Status</TableCell>
-                  <TableCell>Score</TableCell>
+                
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data?.data.map((row, index) => (
-                  <TableRow
-                    key={index}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {row.subname}
-                    </TableCell>
-                    <TableCell>{row.due}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => { handlequiz(row._id) }} variant="contained" color="success">
-                        Pending
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      NULL
-                    </TableCell>
-                  </TableRow>
-                ))}
+              {result && result.map((row, index) => (
+  <TableRow
+    key={index}
+    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+  >
+    <TableCell component="th" scope="row">
+      {row.data && row.data.data && row.data.data[0] && row.data.data[0].subname}
+    </TableCell>
+    <TableCell>  {row.data && row.data.data && row.data.data[0] && row.data.data[0].due}</TableCell>
+    <TableCell>
+      <Button onClick={() => { handlequiz(row.data.data[0]._id) }} variant="contained" color="success">
+        Pending
+      </Button>
+    </TableCell>
+  </TableRow>
+))}
+
               </TableBody>
             </Table>
           </TableContainer>
@@ -117,6 +130,6 @@ console.log("pid:",get().pid)
       />
     </>
   );
-}
+};
 
 export default ChooseQuiz;

@@ -3,7 +3,8 @@ const bcryptjs = require("bcryptjs")
 
 const objectSchema = new mongoose.Schema({
   quizid:String,
-  status:String
+  status:String,
+  score:String
 });
 
 
@@ -29,7 +30,10 @@ const studentSchema = new mongoose.Schema(
     },
     assignedQuiz:[objectSchema],
     attemptedQuiz:[{
-       quizid:String,
+       quizid:{
+        type:String,
+        unique:true
+       },
         score:Number
     }],
     yearbranch:{

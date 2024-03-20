@@ -78,11 +78,38 @@ studentRoutes.post("/register",async(req,res)=>{
     studentRoutes.get('/:pid',async(req,res)=>{
         const pid=req.params.pid;
         try{
-            const details=await Student.find({pid});
+            const details=await Student.find({
+                pid
+               
+            });
             console.log("details are    ",details);
             res.status(200).send(details);
         }catch(e){
             res.status(400).send(e);
         }
     })
+
+// when student submits form
+studentRoutes.put('/', async (req, res) => {
+    const { pid, status, score, quizid } = req.body;
+    try {
+        // Update the status within assignedQuiz array and score field
+        const result = await Student.findOneAndUpdate(
+            { pid: pid, 'assignedQuiz.quizid': quizid },
+            {
+                $set: {
+                    'assignedQuiz.$.status': status,
+                    'assignedQuiz.$.score': score,
+                }
+            },
+            { new: true }
+        );
+        console.log("Updated docs is:", result)
+        res.status(200).send(result);
+    } catch (e) {
+        console.log("Error in catch:", e);
+        res.status(400).send(e);
+    }
+})
+
 module.exports = studentRoutes

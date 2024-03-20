@@ -6,7 +6,7 @@ import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import style from "../styles/styles.module.css"
 import QuizForm from './QuizForm';
 import { useNavigate } from 'react-router-dom';
-
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 
 
 const MidContainer=styled.div({
@@ -35,29 +35,7 @@ const Mid = () => {
   <MidContainer className={style.mid}>
 
     {/* first card */}
-  <Card className={style.mid} sx={{
-        padding:'1%',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'center',
-        alignItems:'center',
-        gap:'10px',
-        backdropFilter:'blur(20px)',
-        background:'transparent'
-       }}>
-        <div style={{fontWeight:'700',fontSize:'2rem'}}>Generate Quiz</div>
-        <Button onClick={()=>{setPop(true)}} sx={{
-          borderRadius:'50%',
-          height:'50px',
-          width:'50px',
-          color:'#fb8500'
-        }} variant="text" >
-         <AddCircleIcon sx={{width:'100%',height:'100%'}}/>
-        </Button>
-       </Card>
-
-       {/* second card */}
-       <Card className={style.mid} sx={{
+    <Card className={style.mid} sx={{
         padding:'1%',
         display:'flex',
         flexDirection:'column',
@@ -77,6 +55,30 @@ const Mid = () => {
          <NoteAltOutlinedIcon sx={{width:'100%',height:'100%'}}/>
         </Button>
        </Card>
+
+       {/* second card */}
+       <Card className={style.mid} sx={{
+        padding:'1%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'center',
+        gap:'10px',
+        backdropFilter:'blur(20px)',
+        background:'transparent'
+       }}>
+        <div style={{fontWeight:'700',fontSize:'2rem'}}>View Score</div>
+        <Button onClick={()=>{setPop(true)}} sx={{
+          borderRadius:'50%',
+          height:'50px',
+          width:'50px',
+          color:'#fb8500'
+        }} variant="text" >
+         <RemoveRedEyeIcon sx={{width:'100%',height:'100%'}}/>
+        </Button>
+       </Card>
+
+      
   </MidContainer>
   </>
   )
