@@ -30,8 +30,10 @@ const Login = () => {
       pid: name,
       password: pass
     }).then((res) => {
-      var pid = res?.data.pid;
-      var role = res?.data.role;
+      var name=res.data.student.name;
+      var pid = res?.data.student.pid;
+      var role = res?.data.student.role;
+      console.log(res.data.student.student)
     //  check status from server -->
     if(res.data.status==='failed'){
       toast.error("No User Found", {
