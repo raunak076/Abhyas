@@ -30,24 +30,35 @@ const Login = () => {
       pid: name,
       password: pass
     }).then((res) => {
-      var name=res.data.student.name;
-      var pid = res?.data.student.pid;
-      var role = res?.data.student.role;
-      console.log(res.data.student.student)
+     
     //  check status from server -->
     if(res.data.status==='failed'){
       toast.error("No User Found", {
         position: "top-center"
       });
     }
+    // if Success-->
+
     else if(res.data.status==='success'){
+      if(role==='student'){
+        var name=res.data.student.name;
+        var pid = res?.data.student.pid;
+      
+      }
+      if(role==='teacher'){
+        var name=res.data.teacher.name;
+        var pid = res?.data.teacher.pid;
+       
+      }
+     console.log("name:",name)
+      console.log("responded data",res.data)
       toast.success("Welcome  !", {
         position: "top-center"
       });
       setAuth({ name, pid });
       set(true)
-      setuser({ name, role });
-      console.log(res, getuser())
+      setuser({ name, pid });
+   
       setTimeout(() => {
         if (role === "teacher") {
           navigate('/teacher');

@@ -12,27 +12,28 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TopBar from './TopBar';
-import { useQuery } from 'react-query';
+import { useQueries, useQuery } from 'react-query';
 import useAuth from '../hooks/useAuth';
 import { useCookie } from '../cookie/useCookie';
 
 
 
-const fetchQuiz=()=>{
-   return  axios.get('http://localhost:3000/quiz/addquiz');
+const fetchStudent=()=>{
+   return  axios.get(`http://localhost:3000/api/student/${pid}`);
 }
 
 const ChooseQuiz = () => {
   const navigate = useNavigate();
  const {quizid,setId}=useAuth();
  const {set}=useCookie('quizid');
- const {isLoading,data,isError,error} =useQuery(
-    'choose-quiz',
-     fetchQuiz,
-     {
-
-     }
-  )
+ const {get}=useCookie('auth');
+//  fetching students fro getting pen ding quizes
+ const {isLoading,data,isError,error} =useQuery( 'choose-quiz', ()=>fetchStudent(get().pid));
+//  fetching quiz with help of quiz id dynamic parallel quizes
+// const {data:quiz}=useQueries('fetchquiz',()=>{fetchquiz()})
+console.log("data is:",data?.data)
+const {pid}=get();
+console.log("pid:",get().pid)
   if(isLoading){
     return <>
     <Card>

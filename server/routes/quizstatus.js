@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const quizdata=require("../models/studentFormData");
 const addquiz=require("../models/quizData");
+const student=require('../models/student');
 
 router.get('/',async(req,res)=>{
    try{
@@ -30,7 +31,58 @@ router.post('/addquiz',async(req,res)=>{
     }
 })
 
-// get data from add quiz
+// put req when posting quiz to students
+router.put('/postquiz',async(req,res)=>{
+    const {_id}=req.body;
+    try{
+         const update=await addquiz.findByIdAndUpdate(
+            _id,
+            {$set:{posted:true}},
+            {new:true}
+         )
+        //  also handle for students ->add these quizes to students database in pending state
+        const std = await student.updateMany(
+            {yearbranch:"teit"},
+            {$push:{assignedQuiz:[{quizid:_id,status:'pending'}]}}
+        )
+         res.status(200).send(std);
+    }catch(e){
+        res.status(400).send(e);
+    }
+})
+
+
+// get data from add quiz to teachers
+router.get('/addquiz/teacher',async(req,res)=>{
+    try{
+       
+        const details=await addquiz.find({
+            posted:false
+        });
+        res.send(details);
+       }catch(err){
+              res.send("Error in loading");
+              console.log(err);
+       }
+    
+})
+
+// get data for students
+router.get('/addquiz/student',async(req,res)=>{
+    try{
+       
+        const details=await addquiz.find({
+            posted:true
+        });
+        res.send(details);
+       }catch(err){
+              res.send("Error in loading");
+              console.log(err);
+       }
+    
+})
+
+// get data all quizes data
 router.get('/addquiz',async(req,res)=>{
     try{
        
@@ -97,3 +149,10 @@ router.post('/',async(req,res)=>{
 })
 
 module.exports=router;
+
+// {
+//     "subname":"DSA",
+//     "due":"20 march",
+//     "questions":[
+//       ]
+//   }

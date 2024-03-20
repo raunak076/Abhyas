@@ -1,5 +1,12 @@
 const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs")
+
+const objectSchema = new mongoose.Schema({
+  quizid:String,
+  status:String
+});
+
+
 const studentSchema = new mongoose.Schema(
   {
     name: {
@@ -20,11 +27,15 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    assignedQuiz:[],
+    assignedQuiz:[objectSchema],
     attemptedQuiz:[{
-        fid:String,
+       quizid:String,
         score:Number
-    }]
+    }],
+    yearbranch:{
+      type:String,
+      default:'teit'
+    }
   },
   { timestamps: true }
 );

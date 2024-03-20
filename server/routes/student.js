@@ -68,7 +68,18 @@ studentRoutes.post("/register",async(req,res)=>{
         })
     studentRoutes.get('/',async(req,res)=>{
         try{
-            const details=await Student.find();
+            const details=await Student.find().populate("assignedQuiz.quizid");
+            console.log("details are    ",details);
+            res.status(200).send(details);
+        }catch(e){
+            res.status(400).send(e);
+        }
+    })
+    studentRoutes.get('/:pid',async(req,res)=>{
+        const pid=req.params.pid;
+        try{
+            const details=await Student.find({pid});
+            console.log("details are    ",details);
             res.status(200).send(details);
         }catch(e){
             res.status(400).send(e);
