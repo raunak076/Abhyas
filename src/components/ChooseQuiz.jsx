@@ -46,7 +46,7 @@ const ChooseQuiz = () => {
 
   const result = useQueries(quizResultQueries);
   
-
+console.log("Student data is::",data?.data[0].assignedQuiz)
 
 
   if (isLoading) {
@@ -104,7 +104,7 @@ const ChooseQuiz = () => {
     <TableCell>  {row.data && row.data.data && row.data.data[0] && row.data.data[0].due}</TableCell>
     <TableCell>
       <Button onClick={() => { handlequiz(row.data.data[0]._id) }} variant="contained" color="success">
-        Pending
+      {data?.data[0].assignedQuiz[index].status}
       </Button>
     </TableCell>
   </TableRow>

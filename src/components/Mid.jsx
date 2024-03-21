@@ -68,7 +68,7 @@ const Mid = () => {
         background:'transparent'
        }}>
         <div style={{fontWeight:'700',fontSize:'2rem'}}>View Score</div>
-        <Button onClick={()=>{setPop(true)}} sx={{
+        <Button onClick={()=>{navigate('/dashboard/viewscore')}} sx={{
           borderRadius:'50%',
           height:'50px',
           width:'50px',

@@ -2,12 +2,12 @@ var mongoose = require("mongoose");
 
 mongoose
   .connect(
-    `mongodb+srv://rosh0409:rosh0409@cluster0.cvohyfl.mongodb.net/Abhyas?retryWrites=true&w=majority`
+    `mongodb+srv://123:123@cluster0.rvxouqr.mongodb.net/`
   )
   .then(() => {
     console.log("connected");
   })
   .catch((e) => {
-    console.log("not connected");
+    console.log("not connected"); 
     console.log(e);
   });

@@ -12,6 +12,7 @@ import MyForm from './MyForm';
 import AttemptTest from './AttemptTest';
 import ChooseQuiz from './ChooseQuiz';
 import PostQuiz from './Teacher/PostQuiz';
+import ViewScore from './ViewScore';
 
 const Left=styled.div({
     width:'5%',
@@ -60,6 +61,7 @@ const Dashboard = () => {
       {/* <Route path="/" element={<MyForm />} /> */}
       <Route path='/attempt' element={<AttemptTest/>} />
       <Route path='/choosetest' element={<ChooseQuiz/>} />
+      <Route path='/viewscore' element={<ViewScore/>} />
      </Routes>
        <Box className={style.bottom} sx={{
         position:'absolute',
