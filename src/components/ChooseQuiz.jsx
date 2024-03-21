@@ -33,8 +33,15 @@ const ChooseQuiz = () => {
   // Fetching students for getting pending quizzes
   const { isLoading, data, isError, error } = useQuery('choose-quiz', () => fetchStudent(get().pid), {
     onSuccess: (data) => {
-      const fetchedQuizId = data?.data[0]?.assignedQuiz.map(item => item.quizid);
-      setQuizid(fetchedQuizId);
+     try{
+      
+        const fetchedQuizId = data?.data[0]?.assignedQuiz.map(item => item.quizid);
+        setQuizid(fetchedQuizId);
+      
+     }catch(e){
+      console.log("Assigned null",e)
+     }
+    
     }
   });
 
@@ -46,7 +53,7 @@ const ChooseQuiz = () => {
 
   const result = useQueries(quizResultQueries);
   
-console.log("Student data is::",data?.data[0].assignedQuiz)
+// console.log("Student data is::",data?.data[0].assignedQuiz)
 
 
   if (isLoading) {

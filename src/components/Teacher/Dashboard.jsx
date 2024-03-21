@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import PostQuiz from './PostQuiz'
 import Sidebar from './Sidebar';
 import Analysis from './Analysis';
+import About from '../About';
 
 
 
@@ -57,6 +58,7 @@ const Dashboard = () => {
       <Route path="/" element={<Home />} />
       <Route path='/postquiz' element={<PostQuiz/>} />
        <Route path='/analysis' element={<Analysis/>} />
+       <Route path='/about' element={<About/>} />
      </Routes>
        <Box className={style.bottom} sx={{
         position:'absolute',

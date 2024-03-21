@@ -118,7 +118,8 @@ const QuizForm = ({ pop, setPop }) => {
               display: 'flex',
               justifyContent: 'center'
             }}>
-              <Card sx={{
+              <h1>Coming soon ...</h1>
+              {/* <Card sx={{
                 width: '90%',
                 padding: '5%',
                 background:'transparent',
@@ -136,7 +137,7 @@ const QuizForm = ({ pop, setPop }) => {
                     Generate
                   </Button>
                 </form>
-              </Card>
+              </Card> */}
             </Box>
           </> : ""
         }

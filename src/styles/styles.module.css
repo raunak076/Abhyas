@@ -4,7 +4,8 @@
 
 
 .background {
-   background-image: url("../assets//bg.png");
+   /* background-image: url("../assets//bg.png"); */
+   background-color: #bde0fe;
    background-size: cover;
     position: absolute;
     top: 0;
@@ -13,7 +14,12 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    scroll-behavior: smooth;
   }
+.text{
+  color: rgb(2, 47, 228);
+  font-size: 50px;
+}
 
 
   select {
@@ -30,9 +36,10 @@
   }
 
   @media (max-width:800px) {
-    .background{
-      background-image: url("https://colibriwp.com/blog/wp-content/uploads/2021/06/5243028.jpg");
-    }
+      .text{
+       font-size: 30px;
+        
+      }
   }
   
   .scrollText {
