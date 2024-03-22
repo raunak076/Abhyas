@@ -297,8 +297,10 @@ input[type="submit"]:active
 
 /* dash oard style here */
 .dash{
-   background-image: url("https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709337600&semt=ais");
+   /* background-image: url("https://img.freepik.com/free-photo/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg?size=338&ext=jpg&ga=GA1.1.1395880969.1709337600&semt=ais"); */
+  background-image: url("https://wallpapers.ispazio.net/wp-content/uploads/2021/01/Aqueux-Graphite-iPhone-400x866.jpg");
    background-size: cover;
+
    animation: dash 15s infinite alternate;
     background-position: 0 0;
 }

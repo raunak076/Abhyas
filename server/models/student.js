@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
-const bcryptjs = require("bcryptjs")
+const bcryptjs = require("bcryptjs");
 
 const objectSchema = new mongoose.Schema({
-  quizid:String,
-  status:String,
-  score:String
+  quizid: {
+    type: String,
+    unique: true,
+  },
+  status: String,
+  score: String,
 });
-
 
 const studentSchema = new mongoose.Schema(
   {
@@ -20,46 +22,48 @@ const studentSchema = new mongoose.Schema(
       required: true,
     },
     email: {
-        type: String,
-        unique: true,
-        required: true,
-      },
+      type: String,
+      unique: true,
+      required: true,
+    },
     password: {
       type: String,
       required: true,
     },
-    assignedQuiz:[objectSchema],
-    attemptedQuiz:[{
-       quizid:{
-        type:String,
-        unique:true
-       },
-        score:Number
-    }],
-    yearbranch:{
-      type:String,
-      default:'teit'
-    }
+    assignedQuiz: [objectSchema],
+    attemptedQuiz: [
+      {
+        quizid: {
+          type: String,
+          unique: true,
+        },
+        score: Number,
+      },
+    ],
+    yearbranch: {
+      type: String,
+      default: "teit",
+    },
   },
   { timestamps: true }
 );
 
 studentSchema.pre("save", async function (next) {
-    try {
-      if (!this.isModified("password")) {
-        return next();
-      }
-      // hash paaword
-      console.log("1");
-      const salt = await bcryptjs.genSalt(10);
-      const hashPass = await bcryptjs.hash(this.password, salt);
-      // console.log(hashPass);
-      this.password = hashPass;
-      next();
-    } catch (error) {
-      console.log(error.message);
+  try {
+    if (!this.isModified("password")) {
+      return next();
     }
-  });
-  
+    // hash paaword
+    console.log("1");
+    const salt = await bcryptjs.genSalt(10);
+    const hashPass = await bcryptjs.hash(this.password, salt);
+    // console.log(hashPass);
+    this.password = hashPass;
+    next();
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 const Student = mongoose.model("student", studentSchema);
 module.exports = Student;

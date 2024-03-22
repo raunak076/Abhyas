@@ -22,7 +22,7 @@ useEffect(()=>{
         style={{ width: '70%' }}
       >
         <p style={{ textAlign: 'center' }} className={`${styles.scrollText} ${styles.imgAnime}`}>
-          Abhyaas
+          Abhyas
         </p>
       </motion.div>
       <Grid container spacing={4} justifyContent="center" alignItems="center" style={{ minHeight: '60vh' }}>
