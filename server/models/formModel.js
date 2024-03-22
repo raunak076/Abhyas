@@ -5,7 +5,6 @@ const userschema = new mongoose.Schema(
     filename: {
       type: String,
       required: true,
-      unique: false,
     },
     content: {
       type: String,

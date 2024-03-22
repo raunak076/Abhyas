@@ -14,11 +14,10 @@ const userschema = new mongoose.Schema(
     subname: {
       type: String,
       required: true,
-      unique: true,
+      unique: false,
     },
     due: {
       type: String,
-      unique: true,
       required: true,
     },
     questions: [objectSchema],

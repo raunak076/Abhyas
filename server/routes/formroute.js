@@ -5,11 +5,12 @@ const { default: axios } = require("axios");
 // const objectSchema = require("../models/quizData");
 const userschema = require("../models/quizData");
 const mongoose = require("mongoose");
+const Teacher = require("../models/teacher");
 
 // getting quiz date -->file name and content
 router.post("/", async (req, res) => {
   try {
-    const { filename, content } = req.body;
+    const { filename, content, due, pid } = req.body;
     const useradded = await quiz.create({
       filename: filename,
       content: content,
@@ -21,16 +22,7 @@ router.post("/", async (req, res) => {
     });
     // console.log(data);
     const { Answer, Option, Question } = data;
-    // const right Math.floor(Math.random() * 4)
-    // const objectSchema = new mongoose.Schema({
-    //   question: String,
-    //   A: String,
-    //   B: String,
-    //   C: String,
-    //   D: String,
-    //   answer: String,
-    // });
-    // console.log(Answer, Option, Question);
+
     const rndIndArr = [];
     const questions = [];
     if (Answer && Option && Question) {
@@ -60,23 +52,23 @@ router.post("/", async (req, res) => {
         D: Option[i][3],
         answer: rightAnswer[rndIndArr[i]],
       });
-      // console.log("Inside for ::", questions[i]);
-      // const newForm = new objectSchema({
-      //   question: Question[i],
-      //   A: Option[1][0],
-      //   B: Option[i][1],
-      //   C: Option[i][2],
-      //   D: Option[i][3],
-      //   answer: rightAnswer[rndIndArr[i]],
-      // });
     }
+
+    // Adding quiz into quiz data
     const results = await userschema.create({
-      subname: "test",
-      due: "24 march",
+      subname: filename,
+      due: due,
       questions,
     });
     console.log("results are::", results);
     console.log("question list :: ", questions);
+
+    // adding quizid to teacher's database for refering myquizes
+    //  const teacher=await Teacher.find({
+    //   pid:pid,
+
+    //  })
+
     res.status(201).json(useradded);
   } catch (error) {
     console.error(error);
