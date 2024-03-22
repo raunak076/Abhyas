@@ -7,6 +7,7 @@ const quiz=require('../models/formModel')
 router.post('/',async(req,res)=>{
     try{
    const {filename,content}=req.body;
+
     const useradded=await quiz.create({
       filename:filename,
       content:content

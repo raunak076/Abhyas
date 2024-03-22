@@ -16,6 +16,7 @@ import { useQueries, useQuery } from 'react-query';
 import useAuth from '../hooks/useAuth';
 import { useCookie } from '../cookie/useCookie';
 
+
 const fetchStudent = (pid) => {
   return axios.get(`http://localhost:3000/api/student/${pid}`);
 };
