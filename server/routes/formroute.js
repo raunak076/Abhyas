@@ -12,20 +12,13 @@ router.post("/", async (req, res) => {
       content: content,
     });
     console.log(req.body);
-    const data = await axios.post("http://127.0.0.1:5000/get-MCQ", {
+    const { data } = await axios.post("http://127.0.0.1:5000/get-MCQ", {
       raw_text: content,
       noOfQuestion: 5,
     });
-    // console.log(req.body);
     console.log(data);
-    // const mcq = await fetch("http://192.168.0.103:5000/get-MCQ", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ raw_text: content, noOfQuestion: 5 }),
-    // });
-    // console.log(mcq);
+    const { Answer, Option, Question } = data;
+    console.log(Answer, Option, Question);
     res.status(201).json(useradded);
   } catch (error) {
     console.error(error);
