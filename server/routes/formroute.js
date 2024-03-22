@@ -2,6 +2,9 @@ var express = require("express");
 var router = express.Router();
 const quiz = require("../models/formModel");
 const { default: axios } = require("axios");
+// const objectSchema = require("../models/quizData");
+const userschema = require("../models/quizData");
+const mongoose = require("mongoose");
 
 // getting quiz date -->file name and content
 router.post("/", async (req, res) => {
@@ -16,9 +19,64 @@ router.post("/", async (req, res) => {
       raw_text: content,
       noOfQuestion: 5,
     });
-    console.log(data);
+    // console.log(data);
     const { Answer, Option, Question } = data;
-    console.log(Answer, Option, Question);
+    // const right Math.floor(Math.random() * 4)
+    // const objectSchema = new mongoose.Schema({
+    //   question: String,
+    //   A: String,
+    //   B: String,
+    //   C: String,
+    //   D: String,
+    //   answer: String,
+    // });
+    // console.log(Answer, Option, Question);
+    const rndIndArr = [];
+    const questions = [];
+    if (Answer && Option && Question) {
+      for (var i = 0; i < Option.length; i++) {
+        const index = Math.floor(Math.random() * 4);
+        console.log("Option Before ::", Option[i][index]);
+        Option[i][index] = Answer[i];
+        console.log("Answer ::", Answer[i]);
+        console.log("Option ::", Option[i][index]);
+
+        rndIndArr.push(index);
+      }
+    }
+    // console.log(rndIndArr);
+    const rightAnswer = {
+      0: "A",
+      1: "B",
+      2: "C",
+      3: "D",
+    };
+    for (var i = 0; i < Option.length; i++) {
+      questions.push({
+        question: Question[i],
+        A: Option[i][0],
+        B: Option[i][1],
+        C: Option[i][2],
+        D: Option[i][3],
+        answer: rightAnswer[rndIndArr[i]],
+      });
+      // console.log("Inside for ::", questions[i]);
+      // const newForm = new objectSchema({
+      //   question: Question[i],
+      //   A: Option[1][0],
+      //   B: Option[i][1],
+      //   C: Option[i][2],
+      //   D: Option[i][3],
+      //   answer: rightAnswer[rndIndArr[i]],
+      // });
+    }
+    const results = await userschema.create({
+      subname: "test",
+      due: "24 march",
+      questions,
+    });
+    console.log("results are::", results);
+    console.log("question list :: ", questions);
     res.status(201).json(useradded);
   } catch (error) {
     console.error(error);

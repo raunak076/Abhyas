@@ -8,10 +8,11 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Box, Button } from '@mui/material';
+import {useQuery} from 'react-query';
 
 
 const Myquiz = () => {
-
+  const {isLoading,data}= useQuery()
 // handle delete function
 // const Delete=(row)=>{
 //     console.log("Delete item is:",row._id);
@@ -28,12 +29,12 @@ const Myquiz = () => {
 
 //     })
 // }
-const data=[
-    {
-        filename:'dsa',
-        createdAt:'20 march 2024'
-    }
-]
+// const data=[
+//     {
+//         filename:'dsa',
+//         createdAt:'20 march 2024'
+//     }
+// ]
 
   return (
     <div>
@@ -47,7 +48,7 @@ const data=[
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row,index) => (
+        {/* {data.map((row,index) => (
             <TableRow
              key={index}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -63,7 +64,7 @@ const data=[
                 </Button>
               </TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>
